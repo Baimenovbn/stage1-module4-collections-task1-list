@@ -5,11 +5,34 @@ import java.util.List;
 
 public class ListSorter {
     public void sort(List<String> sourceList) {
+        sourceList.sort(new ListComparator());
     }
 }
 
 class ListComparator implements Comparator<String> {
     @Override
     public int compare(String a, String b) {
+        int aNum = Integer.parseInt(a);
+        int bNum = Integer.parseInt(b);
+
+        int transformedA = applyFn(aNum);
+        int transformedB = applyFn(bNum);
+
+        if (transformedA > transformedB) {
+            return 1;
+        } else if (transformedA < transformedB) {
+            return -1;
+        }
+
+        return compareByPureValue(aNum, bNum);
+
+    }
+
+    private int applyFn(int x) {
+        return 5 * x * x + 3;
+    }
+
+    private int compareByPureValue(int a, int b) {
+        return a - b;
     }
 }
